@@ -20,16 +20,22 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.example.service.UserDetailsServiceImpl;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableAuthorizationServer
 public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
-	@Autowired
-	@Qualifier("authenticationManagerBean")
+
+	//@Qualifier("authenticationManagerBean")
 	private AuthenticationManager authenticationManager;
-	
-	@Autowired
-	UserDetailsService userDetailsService;
+	private UserDetailsService userDetailsService;
+
+	public OAuthConfiguration(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, DataSource dataSource) {
+		this.authenticationManager = authenticationManager;
+		this.userDetailsService = userDetailsService;
+
+	}
 
 	@Override
 	public void configure(final AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
@@ -38,8 +44,15 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
+//		clients.
+//				.withClient("fooClientId").secret("secret")
+//				.authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("read","write")
+//				.autoApprove(true);
+
+
 		clients.inMemory()
-		.withClient("fooClientId").secret("secret")
+		.withClient("client").secret("secret")
 		.authorizedGrantTypes("password", "authorization_code", "refresh_token").scopes("read","write")
 		.autoApprove(true);
 	}
@@ -52,6 +65,7 @@ public class OAuthConfiguration extends AuthorizationServerConfigurerAdapter {
 
 	@Bean
 	public TokenStore tokenStore(){
+
 		return new JwtTokenStore(defaultAccessTokenConverter());	
 	}
 

@@ -40,6 +40,6 @@ public class UserInfoService {
 	}
 
 	public void deleteUser(Integer id) {
-		userDatailsRepository.deleteById(id);
+		userDatailsRepository.delete(id);
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,15 +12,16 @@ import com.example.model.UserInfo;
 
 @Repository
 @Transactional
-public interface UserDetailsRepository extends CrudRepository<UserInfo, String> {
-	public UserInfo findByUserNameAndEnabled(String userName, short enabled);
+public interface UserDetailsRepository extends JpaRepository<UserInfo, Integer> {
 
-	public List<UserInfo> findAllByEnabled(short enabled);
+	 UserInfo findByUserNameAndEnabled(String userName, short enabled);
 
-	public UserInfo findById(Integer id);
+	 List<UserInfo> findAllByEnabled(short enabled);
 
-	@Override
-	public UserInfo save(UserInfo userInfo);
+	 UserInfo findById(Integer id);
 
-	public void deleteById(Integer id);
+//	@Override
+//	 UserInfo save(UserInfo userInfo);
+
+//	 void deleteById(Integer id);
 }

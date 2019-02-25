@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 
 import javax.persistence.Column;
@@ -19,6 +21,7 @@ public class UserInfo implements Serializable {
 	private Integer id;
 
 	@Column(name="username",length=50,nullable=false)
+	@JsonProperty(value = "username")
 	private String userName;
 	
 	@Column(name="password",length=800,nullable=false)
@@ -30,11 +33,11 @@ public class UserInfo implements Serializable {
 	@Column(name="enabled")	
 	private short enabled;
 	
-	public String getUserName() {
+	public String getUsername() {
 		return userName;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.userName = username;
 	}
 	public String getPassword() {
 		return password;
@@ -43,17 +46,10 @@ public class UserInfo implements Serializable {
 		this.password = password;
 	}
 
-	/**
-	 * @return the id
-	 */
 	public Integer getId() {
 		return id;
 	}
 
-	/**
-	 * @param id
-	 *            the id to set
-	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
