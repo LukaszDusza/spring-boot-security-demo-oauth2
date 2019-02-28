@@ -15,8 +15,13 @@ import com.example.model.UserInfo;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-	@Autowired
+
+
 	private UserInfoService userInfoDAO;
+
+	public UserDetailsServiceImpl(UserInfoService userInfoDAO) {
+		this.userInfoDAO = userInfoDAO;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
@@ -25,3 +30,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return new User(userInfo.getUsername(), userInfo.getPassword(), Arrays.asList(authority));
 	}
 }
+

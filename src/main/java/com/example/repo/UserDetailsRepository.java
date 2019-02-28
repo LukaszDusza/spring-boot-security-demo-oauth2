@@ -23,5 +23,5 @@ public interface UserDetailsRepository extends JpaRepository<UserInfo, Integer> 
 //	@Override
 //	 UserInfo save(UserInfo userInfo);
 
-//	 void deleteById(Integer id);
+	 void deleteById(Integer id);
 }

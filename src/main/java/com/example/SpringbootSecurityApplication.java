@@ -14,10 +14,10 @@ public class SpringbootSecurityApplication {
 		SpringApplication.run(SpringbootSecurityApplication.class, args);
 	}
 
-	@Bean
-	public String getPasswordHash() {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		System.out.println(bCryptPasswordEncoder.encode("user"));
-		return bCryptPasswordEncoder.encode("user");
-	}
+//	@Bean
+//	public String getPasswordHash() {
+//		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+//		System.out.println(bCryptPasswordEncoder.encode("user"));
+//		return bCryptPasswordEncoder.encode("user");
+//	}
 }

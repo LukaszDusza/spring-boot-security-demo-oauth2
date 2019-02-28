@@ -7,8 +7,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
 
-@Configuration
-@EnableResourceServer
+//@Configuration
+//@EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     private static final String RESOURCE_ID = "resource-server-rest-api";
     private static final String SECURED_READ_SCOPE = "#oauth2.hasScope('read')";
@@ -28,11 +28,11 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers(SECURED_PATTERN).and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SECURED_PATTERN).access(SECURED_WRITE_SCOPE)
                 .anyRequest().access(SECURED_READ_SCOPE);*/
-        http
-                .antMatcher("/**")
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated();
+//        http
+//                .antMatcher("/**")
+//                .authorizeRequests()
+//                .anyRequest()
+//                .authenticated();
     }
 }
 

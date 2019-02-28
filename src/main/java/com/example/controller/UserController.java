@@ -2,6 +2,7 @@ package com.example.controller;
 
 import java.util.List;
 
+import com.example.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,12 +23,22 @@ import com.example.service.UserInfoService;
 
 @RestController
 public class UserController {
-	@Autowired
-	private UserInfoService userService;
 
-//	@PreAuthorize("hasRole('ADMIN')")
+
+	private UserInfoService userService;
+	private UserDetailsServiceImpl userDetailsService;
+
+	public UserController(UserInfoService userService, UserDetailsServiceImpl userDetailsService) {
+		this.userService = userService;
+		this.userDetailsService = userDetailsService;
+	}
+
+	//@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/user")
 	public Object getAllUser(@RequestHeader HttpHeaders requestHeader) {
+
+		System.out.println(userDetailsService.loadUserByUsername("lukasz").getAuthorities());
+
 		List<UserInfo> userInfos = userService.getAllActiveUserInfo();
 		if (userInfos == null || userInfos.isEmpty()) {
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);

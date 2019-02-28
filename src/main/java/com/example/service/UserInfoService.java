@@ -14,8 +14,12 @@ import com.example.repo.UserDetailsRepository;
 @Transactional
 public class UserInfoService {
 
-	@Autowired
+
 	private UserDetailsRepository userDatailsRepository;
+
+	public UserInfoService(UserDetailsRepository userDatailsRepository) {
+		this.userDatailsRepository = userDatailsRepository;
+	}
 
 	public UserInfo getUserInfoByUserName(String userName) {
 		short enabled = 1;
@@ -40,6 +44,6 @@ public class UserInfoService {
 	}
 
 	public void deleteUser(Integer id) {
-		userDatailsRepository.delete(id);
+		userDatailsRepository.deleteById(id);
 	}
 }
