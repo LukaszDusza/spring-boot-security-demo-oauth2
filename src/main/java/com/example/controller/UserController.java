@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.example.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,23 +23,28 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.model.UserInfo;
 import com.example.service.UserInfoService;
 
+@PropertySource("classpath:sample.properties")
 @RestController
 public class UserController {
 
+	@Value("${title.app}")
+	String attribute;
+
 
 	private UserInfoService userService;
-	private UserDetailsServiceImpl userDetailsService;
+//	private UserDetailsServiceImpl userDetailsService;
 
 	public UserController(UserInfoService userService, UserDetailsServiceImpl userDetailsService) {
 		this.userService = userService;
-		this.userDetailsService = userDetailsService;
+	//	this.userDetailsService = userDetailsService;
 	}
 
-	//@PreAuthorize("hasRole('ROLE_ADMIN')")
+
+
 	@GetMapping("/user")
 	public Object getAllUser(@RequestHeader HttpHeaders requestHeader) {
 
-		System.out.println(userDetailsService.loadUserByUsername("lukasz").getAuthorities());
+		System.out.println(attribute);
 
 		List<UserInfo> userInfos = userService.getAllActiveUserInfo();
 		if (userInfos == null || userInfos.isEmpty()) {
@@ -45,6 +52,7 @@ public class UserController {
 		}
 		return userInfos;
 	}
+
 
 	@PostMapping("/user")
 	public UserInfo addUser(@RequestBody UserInfo userRecord) {
