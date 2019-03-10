@@ -22,10 +22,15 @@ import com.example.service.UserInfoService;
 
 @RestController
 public class UserController {
-	@Autowired
+
+	//@Autowired
 	private UserInfoService userService;
 
-//	@PreAuthorize("hasRole('ADMIN')")
+	public UserController(UserInfoService userService) {
+		this.userService = userService;
+	}
+
+	//	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/user")
 	public Object getAllUser(@RequestHeader HttpHeaders requestHeader) {
 		List<UserInfo> userInfos = userService.getAllActiveUserInfo();
